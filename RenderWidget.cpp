@@ -26,21 +26,21 @@ RenderWidget::~RenderWidget()
 
 QSize RenderWidget::minimumSizeHint() const
 {
-    return QSize(100, 100);
+    return QSize(1000, 700);
 }
 
 
 QSize RenderWidget::sizeHint() const
 {
-    return QSize(600, 600);
+    return QSize(1000, 700);
 }
 
 
 void RenderWidget::initializeGL()
 {
-    glClearColor(1.0, 1.0, 1.0, 0.0);
+    glClearColor(0.95, 0.908, 0.7, 0);
     glMatrixMode(GL_PROJECTION);
-    gluOrtho2D(0.0, 600.0, 0.0, 600.0);
+    gluOrtho2D(0.0, 1000.0, 700.0, 0.0);
 }
 
 
@@ -48,29 +48,65 @@ void RenderWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-//    glLineWidth(3);
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-//   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    // gradiant quade
+    glBegin(GL_QUADS);
+        glColor3f(0.208, 0.216, 0.212); // Dark Gray
+        glVertex2f(42, 27);
+        glColor3f(1.0, 1.0, 1.0); // White
+        glVertex2f(420, 27);
+        glColor3f(0.208, 0.216, 0.212); // Dark Gray
+        glVertex2f(420, 392);
+        glColor3f(1.0, 1.0, 1.0); // White
+        glVertex2f(42, 392);
+    glEnd();
 
     glBegin(GL_TRIANGLES);
+      // Yellow triangle
+      glColor3f(254, 242, 0);   // yellow
+      glVertex2f(158, 317);
+      glVertex2f(158, 582);
+      glVertex2f(467, 582);
+
+      // Triangle on top right
       glColor3f(1.0, 0.0, 0.0);   // red
-      glVertex2f(100, 500);
-      glVertex2f(400, 100);
-      glVertex2f(250, 400);
+      glVertex2f(542, 283);
+      glColor3f(0.0, 1.0, 0.0);   // green
+      glVertex2f(721, 18);
+      glColor3f(0.0, 0.0, 1.0);   // blue
+      glVertex2f(900, 283);
+      
     glEnd();
-    
-    //glBegin(GL_TRIANGLES);
-    //  glColor3f(1.0, 0.0, 0.0);   // red
-    //  glVertex2f(100, 100);
-    //  glColor3f(0.0, 1.0, 0.0);   // green
-    //  glVertex2f(400, 100);
-	   // glColor3f(0.0, 0.0, 1.0);   // blue
-    //  glVertex2f(250, 400);
-    //glEnd();
 
+    // Blue polygon
+    glBegin(GL_POLYGON);
+        glColor3f(0.252, 0.284, 0.816); // blue
+        glVertex2f(756, 298);
+        glVertex2f(534, 440);
+        glVertex2f(618, 670);
+        glVertex2f(893, 670);
+        glVertex2f(977, 440);
+    glEnd();
 
+    // Triangle inside the polygon
+    glBegin(GL_TRIANGLES);
+        glColor3f(0.0, 1.0, 0.0);
+        glVertex2f(631, 602);
+        glVertex2f(742, 404);
+        glColor3f(1.0, 0.0, 0.0);
+        glVertex2f(742, 540);
 
-  
+        glColor3f(0.0, 1.0, 0.0);
+        glVertex2f(742, 404);
+        glVertex2f(854, 602);
+        glColor3f(1.0, 0.0, 0.0);
+        glVertex2f(742, 540);
+
+        glColor3f(0.0, 1.0, 0.0);
+        glVertex2f(854, 602);
+        glVertex2f(631, 602);
+        glColor3f(1.0, 0.0, 0.0);
+        glVertex2f(742, 540);
+    glEnd();
 
     glFlush();
 }
